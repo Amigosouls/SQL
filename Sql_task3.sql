@@ -55,3 +55,11 @@ delete from ADDRESS where ADDRESS_ID=2
 select * from Employee;
 select * from Department;
 select * from ADDRESS;
+use Task3
+
+alter table Employee drop constraint FK__Employee__DEPTID__4316F928
+alter table Employee add constraint FkeyDelete  foreign key(DEPTID) references Department(DEPTID) on delete cascade
+
+delete from Department where DEPTID=104
+
+delete from Employee where ID=2
