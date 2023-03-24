@@ -30,15 +30,23 @@ insert into Student values('Paathu','Sem 3',380,500),
 select * from Student
 --1. Create User-define Scalar function to calculate percentage of all students after creating the following table
 
-Alter function Stu_Percentage()
+Alter function Stu_Percentage(@mark int)
 returns decimal
 as begin
 	declare @Tot decimal
-	set @Tot = (select convert(decimal ,sum(securedmarks))/convert(decimal,sum(totalmarks))*100 from Student)
+	set @Tot = (select (@mark/(convert(decimal,500)))*100 from Student)
 	return @Tot
 end
+
+Alter function Stu_Percentage(@mark int)
+returns decimal
+as begin
+	
+	return @mark*100/500
+end
+
 -- calling percentage function
-select dbo.Stu_Percentage() as Percentage
+select studentid,studentname,semester,securedmarks,totalmarks, dbo.Stu_Percentage(securedmarks)as Percentage from Student 
 
 
 --2. Create user-defined function to generate a table that contains result of Sem 3 students
