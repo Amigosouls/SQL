@@ -38,3 +38,43 @@ pivot(
 count(sid) for yearofcompletion in ([2021],[2022],[2023],[2024],[2025],[2026])
 )
 as StudentPivot group by department
+
+create database Library
+use Library
+
+create table Management
+(
+	rackno int primary key,
+	section varchar(20) ,
+	space_available int
+)
+
+create table Books
+(
+	bookno int primary key ,
+	bookname varchar(30) not null,
+	author varchar(30) not null,
+	rackno int default 1 references Management(rackno) on update set default,
+	
+)
+
+
+insert into Management values (1,'Thriller',10),
+(2,'Thriller',9),
+(3,'Novel',14),
+(4,'Autobiography',3),
+(5,'Fantasy Thriller',20),
+(6,'Sci-Fic',7)
+
+
+insert into books values(1,'White Out','Ken Follet',2),
+(2,'Power Play','Joseph Finder',2),
+(3,'The Day After Tomorrow','Allan Follsom',1),
+(4,'In the Eye Of the needle','Ken Follet',5),
+(5,'Marvel','Stan Lee',6)
+
+select * from Books
+
+update Management set rackno=7 where rackno=6;
+
+select * from Books
